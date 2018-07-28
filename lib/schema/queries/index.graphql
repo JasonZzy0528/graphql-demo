@@ -1,0 +1,6 @@
+scalar Date
+
+type Query {
+  Users(id: ID, username: String, email: String): [User],
+  Login(username: String, password: String): Login
+}

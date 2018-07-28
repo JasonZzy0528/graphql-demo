@@ -1,0 +1,11 @@
+type User {
+  id: ID!,
+  username: String!,
+  email: String!,
+  created_at: Date!,
+  updated_at: Date
+}
+
+type Login {
+  access_token: String!
+}

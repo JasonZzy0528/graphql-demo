@@ -1,0 +1,22 @@
+{
+  "presets": ["env", "flow", "react"],
+  "plugins": [
+    "babel-plugin-syntax-dynamic-import",
+    "babel-plugin-inline-import",
+    "relay",
+    "react-hot-loader/babel",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": "css"
+      }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "lodash"
+      }
+    ]
+  ]
+}

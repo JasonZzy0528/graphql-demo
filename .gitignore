@@ -1,0 +1,9 @@
+.DS_Store
+.env
+config/database.json
+credential
+dist
+flow-typed
+node_modules
+tmp
+yarn-error.log

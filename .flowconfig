@@ -1,0 +1,17 @@
+[ignore]
+.*/tmp/.*
+.*/node_modules/.*
+[include]
+
+[libs]
+./flow-typed
+[lints]
+
+[options]
+emoji=true
+module.name_mapper='^actions' -> '<PROJECT_ROOT>/src/actions'
+module.name_mapper='^components' -> '<PROJECT_ROOT>/src/components'
+module.name_mapper='^containers' -> '<PROJECT_ROOT>/src/containers'
+module.name_mapper='^store' -> '<PROJECT_ROOT>/src/store'
+module.name_mapper='^styles' -> '<PROJECT_ROOT>/src/styles'
+[strict]

@@ -1,0 +1,12 @@
+type Mutation {
+  CreateUser(
+    username: String!,
+    password: String!,
+    email: String!
+  ): User,
+  UpdateUser(
+    username: String!,
+    password: String,
+    email: String
+  ): User
+}

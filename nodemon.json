@@ -1,0 +1,17 @@
+{
+  "verbose": false,
+  "ignore": [
+    "dist",
+    "node_modules",
+    "package.json",
+    "src",
+    "yarn.lock"
+  ],
+  "env": {
+    "BABEL_DISABLE_CACHE": 1
+  },
+  "execMap": {
+    "js": "babel-node"
+  },
+  "ext": "js json graphql"
+}
