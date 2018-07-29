@@ -11,6 +11,7 @@ import config from './config'
 import routes from './lib/routes'
 import webpackConf from './config/webpack.conf'
 import { logger, morgan } from './utils'
+import serverWrapper from './lib'
 
 const { port } = config
 
@@ -44,6 +45,7 @@ let compiler
 // }
 
 app.use(routes({compiler}))
+serverWrapper(app)
 
 /**
  * Start application.
