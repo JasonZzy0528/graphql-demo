@@ -4,9 +4,9 @@ type Mutation {
     password: String!,
     email: String!
   ): User,
-  UpdateUser(
+  UpdateUser (
     username: String!,
     password: String,
     email: String
-  ): User
+  ): User @isAuthenticated
 }
