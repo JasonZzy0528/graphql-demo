@@ -3,10 +3,10 @@ type Mutation {
     username: String!,
     password: String!,
     email: String!
-  ): User,
+  ): User @isAuthenticated,
   UpdateUser (
     username: String!,
     password: String,
     email: String
-  ): User @isAuthenticated
+  ): User @isOwner
 }

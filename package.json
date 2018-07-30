@@ -7,8 +7,9 @@
     "debug": "babel-node index.js --inspect=3333",
     "dev": "nodemon index.js",
     "eslint": "eslint --ext .js index.js lib",
-    "flow": "flow",
     "flow-typed": "flow-typed",
+    "flow": "flow",
+    "persistgraphql": "persistgraphql",
     "sequelize": "babel-node ./node_modules/.bin/sequelize",
     "stylelint": "stylelint src/**/*.scss"
   },
@@ -56,6 +57,7 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
+    "babel-plugin-dynamic-import-node": "^2.0.0",
     "babel-plugin-import": "^1.8.0",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-relay": "^1.6.0",
