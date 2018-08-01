@@ -1,0 +1,23 @@
+scalar Date
+# scalar NaturalNumber
+union Item = User
+
+type ItemEdge {
+  cursor: String!
+  node: Item
+}
+
+type PageInfo {
+  start_cursor: String!
+  end_cursor: String!
+  has_next_page: Boolean!
+  has_previous_page: Boolean!
+}
+
+# Limits the number of results returned in the page. Defaults to 10.
+type Page {
+  edges: ItemEdge
+  nodes: [Item]
+  page_info: PageInfo!
+  total_count: Int
+}

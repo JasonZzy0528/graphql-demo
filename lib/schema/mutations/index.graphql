@@ -1,0 +1,13 @@
+type Mutation {
+  CreateUser(
+    username: String!
+    password: String!
+    email: String!
+  ): User @isAuthenticated
+
+  UpdateUser (
+    username: String!
+    password: String
+    email: String
+  ): User @isOwner
+}

@@ -1,6 +1,12 @@
-scalar Date
-
 type Query {
-  Users(id: ID, username: String, email: String): [User],
-  Login(username: String, password: String): Login
+  Users (
+    first: Int @isNaturalNumber
+    after: String
+    last: Int @isNaturalNumber
+    before: String
+  ): Page @isAuthenticated
+  Login (
+    username: String
+    password: String
+  ): Login
 }
