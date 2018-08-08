@@ -1,16 +1,10 @@
 import path from 'path'
-import devEnv from './env/dev.env'
-import prodEnv from './env/prod.env'
-const NODE_ENV = process.env.NODE_ENV
+import fs from 'fs'
 
-let env
-let morganFormat
-if(NODE_ENV === 'production'){
-  env = devEnv
-}else{
-  env = prodEnv
-  morganFormat = ':date[web] - :method :url :status :body - :response-time ms'
-}
+import getClientEnvironment from './env'
+
+let env = getClientEnvironment
+let morganFormat = ':date[web] - :method :url :status :body - :response-time ms'
 
 const config= {
   client: {
@@ -22,11 +16,16 @@ const config= {
     template: path.resolve(__dirname, '..', 'src', 'index.html')
   },
   env: env,
+  paths: {
+    appNodeModules: path.relative(process.cwd(), 'node_modules'),
+    appPackageJson: path.relative(process.cwd(), 'package.json'),
+  },
   port: 3000,
   server: {
     morganFormat
   },
-  stylelintPath: path.resolve(__dirname, '../.stylelintrc')
+  stylelintPath: path.resolve(__dirname, '../.stylelintrc'),
+  useYarn: fs.existsSync(path.relative(process.cwd(), 'yarn.lock'))
 }
 
 export default config

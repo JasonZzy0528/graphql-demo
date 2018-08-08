@@ -1,16 +1,24 @@
 /* @flow */
-import { BrowserRouter } from 'react-router-dom'
 import React from 'react'
+import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
+import registerServiceWorker from './registerServiceWorker'
+import Root from './Root'
+import 'typeface-roboto'
+import 'styles/index.scss'
 
-import App from './routes'
+// Redux store settings
+import configureStore from './store/configureStore'
 
-const rootEl = document.getElementById('root')
+const storeObject = configureStore()
+const store = storeObject.store
+const history = storeObject.history
 
-if (rootEl !== null) {
-  ReactDOM.render((
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
-  ), rootEl)
-}
+ReactDOM.render(
+  <Provider store={ store }>
+    <Root history={ history } />
+  </Provider>,
+  document.getElementById('root')
+)
+
+registerServiceWorker()

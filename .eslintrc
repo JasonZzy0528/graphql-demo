@@ -1,6 +1,7 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "es6": true
   },
   "extends": [
     "eslint:recommended",
@@ -8,7 +9,9 @@
     "plugin:react/recommended"
   ],
   "globals":{
-    "document": true
+    "document": true,
+    "window": true,
+    "fetch": true
   },
   "parser": "babel-eslint",
   "parserOptions": {

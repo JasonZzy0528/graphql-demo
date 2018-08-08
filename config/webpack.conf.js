@@ -4,7 +4,7 @@ import devWebpackConfig from './webpack/webpack.conf.dev'
 let config
 
 if(NODE_ENV == 'production'){
-  config = prodWebpackConfig
+  // config = prodWebpackConfig
 }else{
   config = devWebpackConfig
 }

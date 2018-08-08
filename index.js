@@ -5,7 +5,7 @@ import Promise from 'bluebird'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import opn from 'opn'
+import openBrowser from 'react-dev-utils/openBrowser'
 
 import config from './config'
 import routes from './lib/routes'
@@ -24,25 +24,25 @@ app.use(bodyParser.json())
 // webpack middleware
 let devMiddleware
 let compiler
-// if(process.env.NODE_ENV !== 'production'){
-//   compiler = webpack(webpackConf)
-//   devMiddleware = webpackDevMiddleware(compiler, {
-//     publicPath: webpackConf.output.publicPath,
-//     index: config.client.output,
-//     logger,
-//     noInfo: false,
-//     stats: {
-//       children: false,
-//       colors: true,
-//       modules: false
-//     }
-//   })
-//
-//   app.use(devMiddleware)
-//   app.use(webpackHotMiddleware(compiler))
-// }else{
-//   app.use(express.static(path.join(__dirname, 'dist')))
-// }
+if(process.env.NODE_ENV !== 'production'){
+  compiler = webpack(webpackConf)
+  devMiddleware = webpackDevMiddleware(compiler, {
+    publicPath: webpackConf.output.publicPath,
+    index: config.client.output,
+    logger,
+    noInfo: false,
+    stats: {
+      children: false,
+      colors: true,
+      modules: false
+    }
+  })
+
+  app.use(devMiddleware)
+  app.use(webpackHotMiddleware(compiler))
+}else{
+  app.use(express.static(path.join(__dirname, 'dist')))
+}
 
 app.use(routes({compiler}))
 serverWrapper(app)
@@ -58,7 +58,7 @@ let startApplication = async () => {
       devMiddleware.waitUntilValid(() => {
         app.listen(port)
         logger.info(`🚀Application started, listening at on port ${port}`)
-        opn(`http://localhost:${port}`)
+        openBrowser(`http://localhost:${port}`)
         resolve()
       })
     } else {

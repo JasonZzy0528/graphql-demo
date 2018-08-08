@@ -4,8 +4,12 @@ import webpack from 'webpack'
 import { concat, forEach } from 'lodash'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
 
+import getClientEnvironment from '../env'
 import config from '../index'
 import baseWebpackConfig from './webpack.conf.base'
+const publicUrl = ''
+
+const env = getClientEnvironment(publicUrl)
 
 const entryNames = Object.keys(baseWebpackConfig.entry)
 forEach(entryNames, name => {
@@ -16,19 +20,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': config.env.NODE_ENV,
-    }),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin(env.stringified),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: config.client.template,
-      inject: 'body'
+      inject: true,
+      PUBLIC_URL: env.raw.PUBLIC_URL
     }),
+    new webpack.NamedModulesPlugin(),
     new StyleLintPlugin({
       configFile: config.stylelintPath,
       syntax: 'scss'
-    }),
+    })
   ],
   optimization: {
     namedModules: true,

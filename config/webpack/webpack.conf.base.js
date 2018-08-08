@@ -1,5 +1,6 @@
 import path from 'path'
 import config from '../index'
+import eslintFormatter from 'react-dev-utils/eslintFormatter'
 
 const { client, entry, output } = config.client
 
@@ -17,6 +18,7 @@ const baseWebpackConfig = {
     alias: {
       actions: path.resolve(client, 'actions'),
       assets: path.resolve(client, 'assets'),
+      epics: path.resolve(client, 'epics'),
       components: path.resolve(client, 'components'),
       containers: path.resolve(client, 'containers'),
       reducers: path.resolve(client, 'reducers'),
@@ -31,20 +33,42 @@ const baseWebpackConfig = {
         enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        use: 'eslint-loader',
+        use: {
+          loader: 'eslint-loader',
+          options: {
+            formatter: eslintFormatter
+          }
+        }
+      },
+      {
+        test: /\.css$/,
+        // exclude: /node_modules/,
+        use: [
+          'style-loader',
+          'css-loader',
+          // {
+          //   loader: 'css-loader',
+          //   options: {
+          //     modules: true,
+          //     importLoaders: 2
+          //   }
+          // },
+          'postcss-loader'
+        ]
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
           'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 2
-            }
-          },
+          'css-loader',
+          // {
+          //   loader: 'css-loader',
+          //   options: {
+          //     modules: true,
+          //     importLoaders: 1
+          //   }
+          // },
           'postcss-loader',
           'sass-loader'
         ]
