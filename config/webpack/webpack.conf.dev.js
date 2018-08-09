@@ -3,7 +3,6 @@ import merge from 'webpack-merge'
 import webpack from 'webpack'
 import { concat, forEach } from 'lodash'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import getClientEnvironment from '../env'
 import config from '../index'
@@ -33,12 +32,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new StyleLintPlugin({
       configFile: config.stylelintPath,
       syntax: 'scss'
-    }),
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css',
     })
   ],
   optimization: {

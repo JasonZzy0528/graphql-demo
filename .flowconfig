@@ -2,11 +2,12 @@
 .*/tmp/.*
 .*/node_modules/.*
 [include]
-
+./lib/
 [libs]
 ./flow-typed
 [lints]
-
+untyped-type-import=warn
+untyped-import=warn
 [options]
 emoji=true
 module.name_mapper='^actions' -> '<PROJECT_ROOT>/src/actions'
