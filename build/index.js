@@ -8,7 +8,7 @@ var chalk = require('chalk')
 var webpack = require('webpack')
 // var config = require('../config')
 var webpackConfig = require('../config/webpack/webpack.conf.dev').default
-console.error(webpackConfig)
+
 var spinner = ora('building for production...')
 spinner.start()
 rm(path.resolve(__dirname, '..', 'dist'), err => {

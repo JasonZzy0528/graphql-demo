@@ -1,14 +1,16 @@
 {
   "presets": ["env", "flow", "react"],
   "plugins": [
-    "syntax-dynamic-import",
+    "syntax-dynamic-import", // client side import
+    "dynamic-import-node", // server side import
     "babel-plugin-inline-import",
     "relay",
     "react-hot-loader/babel",
     [
       "import",
       {
-        "libraryName": "@material-ui/core"
+        "libraryName": "antd",
+        "style": "css"
       }
     ],
     [

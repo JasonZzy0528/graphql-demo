@@ -16,6 +16,7 @@ const config= {
     template: path.resolve(__dirname, '..', 'src', 'index.html')
   },
   env: env,
+  devMode: env.NODE_ENV !== 'production',
   paths: {
     appNodeModules: path.relative(process.cwd(), 'node_modules'),
     appPackageJson: path.relative(process.cwd(), 'package.json'),

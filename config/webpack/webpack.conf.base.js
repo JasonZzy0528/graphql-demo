@@ -1,7 +1,9 @@
 import path from 'path'
 import config from '../index'
 import eslintFormatter from 'react-dev-utils/eslintFormatter'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
+const { devMode } = config
 const { client, entry, output } = config.client
 
 const baseWebpackConfig = {
@@ -41,26 +43,10 @@ const baseWebpackConfig = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.(sa|sc|c)ss$/,
         // exclude: /node_modules/,
         use: [
-          'style-loader',
-          'css-loader',
-          // {
-          //   loader: 'css-loader',
-          //   options: {
-          //     modules: true,
-          //     importLoaders: 2
-          //   }
-          // },
-          'postcss-loader'
-        ]
-      },
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: [
-          'style-loader',
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           // {
           //   loader: 'css-loader',
@@ -87,7 +73,14 @@ const baseWebpackConfig = {
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|icon|eot|svg|ttf)$/,
-        use: 'url-loader?limit=100000'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100000
+            }
+          }
+        ]
       }
     ]
   }
