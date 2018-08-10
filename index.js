@@ -6,10 +6,11 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import openBrowser from 'react-dev-utils/openBrowser'
+import compression from 'compression'
 
 import config from './config'
 import routes from './lib/routes'
-import webpackConf from './config/webpack.conf'
+import webpackDevConf from './config/webpack/webpack.conf.dev'
 import { logger, morgan } from './utils'
 import serverWrapper from './lib'
 
@@ -19,15 +20,16 @@ const app: express = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(compression())
 // app.use(morgan(config.server.morganFormat))
 
 // webpack middleware
 let devMiddleware
 let compiler
 if(process.env.NODE_ENV !== 'production'){
-  compiler = webpack(webpackConf)
+  compiler = webpack(webpackDevConf)
   devMiddleware = webpackDevMiddleware(compiler, {
-    publicPath: webpackConf.output.publicPath,
+    publicPath: webpackDevConf.output.publicPath,
     index: config.client.output,
     logger,
     noInfo: false,
@@ -45,6 +47,7 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 app.use(routes({compiler}))
+// app.use(history())
 serverWrapper(app)
 
 /**
@@ -57,13 +60,13 @@ let startApplication = async () => {
       logger.info('Starting dev server...')
       devMiddleware.waitUntilValid(() => {
         app.listen(port)
-        logger.info(`🚀Application started, listening at on port ${port}`)
+        logger.info(`🚀 Application started, listening at on port ${port}`)
         openBrowser(`http://localhost:${port}`)
         resolve()
       })
     } else {
       app.listen(port)
-      logger.info(`🚀Application started, listening at on port ${port}`)
+      logger.info(`🚀 Application started, listening at on port ${port}`)
       resolve()
     }
   })

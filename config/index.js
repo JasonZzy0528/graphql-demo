@@ -12,11 +12,12 @@ const config= {
     entry: {
       app: path.resolve(__dirname, '..', 'src', 'index.js')
     },
+    icon: path.resolve(__dirname, '..', 'src', 'assets', 'icon.png'),
     output: path.resolve(__dirname, '..', 'dist'),
     template: path.resolve(__dirname, '..', 'src', 'index.html')
   },
   env: env,
-  devMode: env.NODE_ENV !== 'production',
+  devMode: env().raw.NODE_ENV !== 'production',
   paths: {
     appNodeModules: path.relative(process.cwd(), 'node_modules'),
     appPackageJson: path.relative(process.cwd(), 'package.json'),
