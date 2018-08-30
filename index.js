@@ -15,19 +15,19 @@ import webpackDevConf from './config/webpack/webpack.conf.dev'
 import { logger, morgan } from './utils'
 import serverWrapper from './lib'
 
-const { port } = config
+const { isClientEnabled, port } = config
 
 const app: express = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(compression())
-app.use(morgan(config.server.morganFormat))
+app.use(morgan(config.server.morganFormat, { stream: logger.stream }))
 
 // webpack middleware
 let devMiddleware
 let compiler
-if(process.env.NODE_ENV !== 'production'){
+if(process.env.NODE_ENV !== 'production' && isClientEnabled){
   compiler = webpack(webpackDevConf)
   devMiddleware = webpackDevMiddleware(compiler, {
     publicPath: webpackDevConf.output.publicPath,
@@ -46,8 +46,12 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 app.use(routes)
-app.use(history())
-app.use(express.static(path.join(__dirname, 'dist')))
+
+if (isClientEnabled) {
+  app.use(history())
+  app.use(express.static(path.join(__dirname, 'dist')))
+}
+
 serverWrapper(app)
 
 /**

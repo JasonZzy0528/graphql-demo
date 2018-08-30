@@ -1,5 +1,13 @@
 import winston from 'winston'
 import morgan from 'morgan'
+import prettyjson from 'prettyjson'
+
+const options = {
+  keysColor: 'magenta',
+  defaultIndentation: 2,
+  numberColor: 'magenta',
+  noColor: false
+}
 
 const logger = winston.createLogger({
   level: 'info',
@@ -20,9 +28,15 @@ const logger = winston.createLogger({
   ]
 })
 
+logger.stream = {
+  write: function(message) {
+    logger.info(message)
+  },
+}
+
 morgan.token('body', (req) => {
   try {
-    return JSON.stringify(req.body)
+    return `\n${prettyjson.render(req.body, options, 6)}`
   } catch (err) {
     return '-'
   }
