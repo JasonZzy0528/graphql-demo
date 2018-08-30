@@ -4,8 +4,8 @@ import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
 import registerServiceWorker from './registerServiceWorker'
 import Root from './Root'
-import 'typeface-roboto'
-import 'styles/index.css'
+// import 'typeface-roboto'
+import 'styles/index.scss'
 
 // Redux store settings
 import configureStore from './store/configureStore'

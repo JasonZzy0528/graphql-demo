@@ -7,6 +7,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import openBrowser from 'react-dev-utils/openBrowser'
 import compression from 'compression'
+import history from 'connect-history-api-fallback'
 
 import config from './config'
 import routes from './lib/routes'
@@ -21,7 +22,7 @@ const app: express = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(compression())
-// app.use(morgan(config.server.morganFormat))
+app.use(morgan(config.server.morganFormat))
 
 // webpack middleware
 let devMiddleware
@@ -42,12 +43,11 @@ if(process.env.NODE_ENV !== 'production'){
 
   app.use(devMiddleware)
   app.use(webpackHotMiddleware(compiler))
-}else{
-  app.use(express.static(path.join(__dirname, 'dist')))
 }
 
-app.use(routes({compiler}))
-// app.use(history())
+app.use(routes)
+app.use(history())
+app.use(express.static(path.join(__dirname, 'dist')))
 serverWrapper(app)
 
 /**

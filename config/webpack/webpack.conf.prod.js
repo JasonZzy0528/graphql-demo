@@ -1,13 +1,12 @@
 import path from 'path'
-import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import merge from 'webpack-merge'
-import webpack from 'webpack'
-import { concat, forEach } from 'lodash'
-import StyleLintPlugin from 'stylelint-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
-import WebpackPwaManifest from 'webpack-pwa-manifest'
+import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin'
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
+import webpack from 'webpack'
 
 import config from '../index'
 import baseWebpackConfig from './webpack.conf.base'
@@ -15,52 +14,36 @@ const publicUrl = ''
 
 const env = config.env(publicUrl)
 
-const entryNames = Object.keys(baseWebpackConfig.entry)
-
-forEach(entryNames, name => {
-  baseWebpackConfig.entry[name] = concat(['babel-polyfill'], baseWebpackConfig.entry[name])
-})
-
 const prodWebpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
-  devtool: 'source-map',
+  devtool: config.client.devtool,
   plugins: [
+    new CleanWebpackPlugin(
+      [
+        'dist'
+      ],
+      {
+        root: path.resolve(__dirname, '..', '..'),
+        exclude: [],
+        verbose: true,
+        dry: false
+      }
+    ),
     new webpack.DefinePlugin(env.stringified),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: config.client.template,
       inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
       PUBLIC_URL: env.raw.PUBLIC_URL
     }),
-    new WebpackPwaManifest({
-      filename: 'manifest.json',
-      inject: true,
-      // Short name is what appears on home screen
-      short_name: 'My First PWA',
-      // Name is what appears on splash screen
-      name: 'My First Progressive Web App',
-      // What appears on splash screen & home screen
-      icons: [
-        {
-          src: config.client.icon,
-          sizes: [96, 128, 192, 256, 384, 512],
-          destination: path.join('assets', 'icons')
-        }
-      ],
-      // So your site can tell it was opened from home screen
-      start_url: '/',
-      // Match our app header background
-      background_color: '#44ab98',
-      // What the URL bar will look like
-      theme_color: '#44ab98',
-      // How the app will appear when it launches (see link below)
-      display: 'standalone'
-    }),
     new webpack.NamedModulesPlugin(),
-    new StyleLintPlugin({
-      configFile: config.stylelintPath,
-      syntax: 'scss'
-    }),
     new SWPrecacheWebpackPlugin(
       {
         dontCacheBustUrlsMatching: /\.\w{8}\./,
@@ -91,15 +74,17 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
   ],
   optimization: {
     namedModules: true,
-    noEmitOnErrors: true,
     minimize: true,
     minimizer: [
-      new OptimizeCSSAssetsPlugin({})
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin()
     ],
     splitChunks: {
-      chunks: 'async',
-      // minSize: 30000,
-      // maxSize: 200000,
+      chunks: 'all',
       minChunks: 1,
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
@@ -108,12 +93,8 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
-          chunks: 'all'
-        },
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all'
+          chunks: 'async',
+          reuseExistingChunk: true
         }
       }
     }

@@ -1,14 +1,23 @@
 /* @flow */
 import React from 'react'
+import { TestConsumer } from '../components/context'
 
 type Props = {/* */}
 type State = {/* */}
 
 class About extends React.Component<Props, State> {
+  constructor (props) {
+    super(props)
+  }
+
   render () {
     return (
       <div>
-        <h2>About</h2>
+        <TestConsumer>
+          {
+            context => <h2>About { context.test }</h2>
+          }
+        </TestConsumer>
       </div>
     )
   }
