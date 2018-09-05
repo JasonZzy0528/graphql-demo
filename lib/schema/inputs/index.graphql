@@ -1,0 +1,4 @@
+input UsersInput {
+  offset: Int @isNaturalNumber,
+  limit: Int @isNaturalNumber
+}

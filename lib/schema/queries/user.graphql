@@ -4,6 +4,7 @@ type User {
   email: String!
   created_at: Date!
   updated_at: Date
+  last_login_timestamp: Date @isAdmin
 }
 
 type Login {

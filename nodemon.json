@@ -11,7 +11,7 @@
     "BABEL_DISABLE_CACHE": 1
   },
   "execMap": {
-    "js": "babel-node"
+    "js": "babel-node --inspect"
   },
   "ext": "js json graphql"
 }

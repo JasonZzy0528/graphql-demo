@@ -1,13 +1,13 @@
 import winston from 'winston'
 import morgan from 'morgan'
-import prettyjson from 'prettyjson'
-
-const options = {
-  keysColor: 'magenta',
-  defaultIndentation: 2,
-  numberColor: 'magenta',
-  noColor: false
-}
+// import prettyjson from 'prettyjson'
+//
+// const options = {
+//   keysColor: 'magenta',
+//   defaultIndentation: 2,
+//   numberColor: 'magenta',
+//   noColor: false
+// }
 
 const logger = winston.createLogger({
   level: 'info',
@@ -34,13 +34,13 @@ logger.stream = {
   },
 }
 
-morgan.token('body', (req) => {
-  try {
-    return `\n${prettyjson.render(req.body, options, 6)}`
-  } catch (err) {
-    return '-'
-  }
-})
+// morgan.token('body', (req) => {
+//   try {
+//     return `\n${prettyjson.render(req.body, options, 6)}`
+//   } catch (err) {
+//     return '-'
+//   }
+// })
 
 export {
   logger,

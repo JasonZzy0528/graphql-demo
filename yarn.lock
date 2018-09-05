@@ -1675,9 +1675,13 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.0.5, bluebird@^3.4.1, bluebird@^3.4.6, bluebird@^3.5.0, bluebird@^3.5.1:
+bluebird@^3.0.5, bluebird@^3.4.1, bluebird@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
+
+bluebird@^3.4.6, bluebird@^3.5.0:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.2.tgz#1be0908e054a751754549c270489c1505d4ab15a"
 
 bluebird@~3.4.1:
   version "3.4.7"
@@ -8286,7 +8290,7 @@ sequelize-cli@^4.0.0:
     umzug "^2.1.0"
     yargs "^8.0.2"
 
-sequelize@^4.37.10:
+sequelize@^4.38.0:
   version "4.38.0"
   resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.38.0.tgz#330c1aa445d4e46b80a97d895603c01666cdc357"
   dependencies:
@@ -9510,8 +9514,8 @@ validate-npm-package-license@^3.0.1:
     spdx-expression-parse "^3.0.0"
 
 validator@^10.4.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-10.5.0.tgz#1debbe1e6f5fd0c920ed2af47516f3762033939c"
+  version "10.7.1"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-10.7.1.tgz#dd4cc750c2134ce4a15a2acfc7b233669d659c5b"
 
 value-equal@^0.4.0:
   version "0.4.0"
