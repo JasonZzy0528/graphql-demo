@@ -1,9 +1,10 @@
+import uuid from 'uuid/v4'
 import { encodePassword } from '../lib/utils'
 
 const seed = {
-  up: async (queryInterface) => {
+  up: async queryInterface => {
     return queryInterface.bulkInsert('user', [{
-      id: '521b3557-959d-4956-9188-4de05e8875da',
+      id: uuid(),
       username: 'admin',
       password: await encodePassword('admin'),
       email: 'admin@admin.com',
@@ -12,9 +13,9 @@ const seed = {
     }])
   },
 
-  down: (queryInterface) => {
+  down: queryInterface => {
     return queryInterface.bulkDelete('user', {
-      id: '521b3557-959d-4956-9188-4de05e8875da'
+      username: 'admin'
     })
   }
 }
