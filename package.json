@@ -1,6 +1,6 @@
 {
   "name": "graphql-backend",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "graphql",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,6 @@
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
     "graphql": "^0.13.2",
-    "graphql-subscriptions": "^0.5.8",
     "graphql-tools": "^3.0.5",
     "graphql-type-json": "^0.2.1",
     "immutable": "^3.8.2",
