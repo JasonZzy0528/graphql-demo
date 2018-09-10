@@ -1,19 +1,20 @@
+import { createServer } from 'http'
 import bodyParser from 'body-parser'
+import compression from 'compression'
 import express from 'express'
+import history from 'connect-history-api-fallback'
+import openBrowser from 'react-dev-utils/openBrowser'
 import path from 'path'
 import Promise from 'bluebird'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import openBrowser from 'react-dev-utils/openBrowser'
-import compression from 'compression'
-import history from 'connect-history-api-fallback'
 
 import config from './config'
 import routes from './lib/routes'
 import webpackDevConf from './config/webpack/webpack.conf.dev'
 import { logger, morgan } from './utils'
-import serverWrapper from './lib'
+import { wrapApolloServer, wrapSubscriptionServer } from './lib'
 
 const { isClientEnabled, port } = config
 
@@ -52,7 +53,7 @@ if (isClientEnabled) {
   app.use(express.static(path.join(__dirname, 'dist')))
 }
 
-serverWrapper(app)
+wrapApolloServer(app)
 
 /**
  * Start application.
@@ -69,7 +70,11 @@ let startApplication = async () => {
         resolve()
       })
     } else {
-      app.listen(port)
+      // app.listen(port)
+      const server = createServer(app)
+      server.listen(port, () => {
+        wrapSubscriptionServer(server)
+      })
       logger.info(`🚀 Application started, listening at on port ${port}`)
       resolve()
     }

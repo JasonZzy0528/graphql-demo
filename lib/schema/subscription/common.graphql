@@ -1,0 +1,12 @@
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+type ObjectUpdated {
+  mutation: MutationType!
+  node: Item!
+  previous: Item!
+  updatedField: [String!]
+}
