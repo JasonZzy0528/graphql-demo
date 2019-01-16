@@ -4,7 +4,7 @@ import fs from 'fs'
 import getClientEnvironment from './env'
 
 let env = getClientEnvironment
-let morganFormat = ':date[web] - :method :url :status :response-time ms'
+let morganFormat = ':date[web] - :method :url :status :response-time ms\n:body'
 // :body'
 const isDevMode = env().raw.NODE_ENV !== 'production'
 
@@ -21,7 +21,7 @@ const config= {
   },
   devMode: isDevMode,
   env: env,
-  isClientEnabled: false,
+  isClientEnabled: true,
   paths: {
     appNodeModules: path.relative(process.cwd(), 'node_modules'),
     appPackageJson: path.relative(process.cwd(), 'package.json'),

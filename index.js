@@ -2,9 +2,7 @@ import { createServer } from 'http'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import express from 'express'
-import history from 'connect-history-api-fallback'
 import openBrowser from 'react-dev-utils/openBrowser'
-import path from 'path'
 import Promise from 'bluebird'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -28,7 +26,8 @@ app.use(morgan(config.server.morganFormat, { stream: logger.stream }))
 // webpack middleware
 let devMiddleware
 let compiler
-if(process.env.NODE_ENV !== 'production' && isClientEnabled){
+
+if (process.env.NODE_ENV !== 'production' && isClientEnabled) {
   compiler = webpack(webpackDevConf)
   devMiddleware = webpackDevMiddleware(compiler, {
     publicPath: webpackDevConf.output.publicPath,
@@ -46,12 +45,7 @@ if(process.env.NODE_ENV !== 'production' && isClientEnabled){
   app.use(webpackHotMiddleware(compiler))
 }
 
-app.use(routes)
-
-if (isClientEnabled) {
-  app.use(history())
-  app.use(express.static(path.join(__dirname, 'dist')))
-}
+app.use(routes(compiler))
 
 wrapApolloServer(app)
 
@@ -61,10 +55,13 @@ wrapApolloServer(app)
  */
 let startApplication = async () => {
   return new Promise(resolve => {
-    if(devMiddleware){
+    if (devMiddleware) {
       logger.info('Starting dev server...')
       devMiddleware.waitUntilValid(() => {
-        app.listen(port)
+        const server = createServer(app)
+        server.listen(port, () => {
+          wrapSubscriptionServer(server)
+        })
         logger.info(`🚀 Application started, listening at on port ${port}`)
         openBrowser(`http://localhost:${port}`)
         resolve()
@@ -87,15 +84,15 @@ let startApplication = async () => {
  * Shutdown job queue.
  * @param {String} sig Signal
  */
-let shutdown = (sig) => {
+let shutdown = sig => {
   logger.warn(`Received ${sig}, shutting down application`)
   process.exit(0)
 }
 
-process.on('SIGINT', function () {
+process.on('SIGINT', function() {
   shutdown('SIGINT')
 })
-process.on('SIGTERM', function () {
+process.on('SIGTERM', function() {
   shutdown('SIGTERM')
 })
 
