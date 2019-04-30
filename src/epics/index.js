@@ -1,8 +1,11 @@
 import { combineEpics } from 'redux-observable'
-import UserEpics from './user'
+import { mergeMap } from 'rxjs/operators'
+import { BehaviorSubject } from 'rxjs'
 
-const rootEpic = combineEpics(
-  UserEpics.fetchUserEpic
-)
+const epicRegistry = []
+export const epic$ = new BehaviorSubject(combineEpics(...epicRegistry))
+
+const rootEpic = (action$, state$) =>
+  epic$.pipe(mergeMap(epic => epic(action$, state$)))
 
 export default rootEpic

@@ -29,7 +29,6 @@ class SVGComponent extends React.Component {
     let circle = draw.circle(10).move(66.039,133.545)
 
     circle.animate({ ease: '<>' }).during(function(pos, morph, eased){
-      console.error(pos, eased)
       // if (pos > 0.5 && !_self.state.isFinished) {
       //   circle.animate().speed(1 - pos)
       // } else {

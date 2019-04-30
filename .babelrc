@@ -1,21 +1,17 @@
 {
-  "presets": ["env", "flow", "react"],
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
   "plugins": [
-    "syntax-dynamic-import",
-    "babel-plugin-inline-import",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-regenerator",
+    "import-graphql",
     "relay",
     "react-hot-loader/babel",
     [
       "import",
       {
         "libraryName": "@material-ui/core"
-      }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "lodash"
-      }
+      },
+      "material-ui"
     ]
   ]
 }

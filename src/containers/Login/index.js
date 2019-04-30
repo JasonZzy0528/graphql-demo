@@ -7,10 +7,7 @@ import OverrideCss from 'components/common/themes/OutlinedButton'
 
 import './index.scss'
 
-type Props = {/* */}
-type State = {/* */}
-
-class Login extends React.Component<Props, State> {
+class Login extends React.Component {
   constructor (props) {
     super(props)
   }

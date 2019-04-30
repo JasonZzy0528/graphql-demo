@@ -1,7 +1,6 @@
 process.env.NODE_ENV = 'production'
 
 import ora from 'ora'
-import chalk from 'chalk'
 import webpack from 'webpack'
 import webpackConfig from '../config/webpack/webpack.conf.prod'
 
@@ -17,6 +16,4 @@ webpack(webpackConfig, (err, stats) => {
     chunks: false,
     chunkModules: false
   }) + '\n\n')
-
-  console.log(chalk.cyan('  Build complete.\n'))
 })

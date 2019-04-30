@@ -1,0 +1,6 @@
+{
+  "linters": {
+    "*.js": ["eslint --fix", "git add", "yarn lint"]
+  },
+  "ignore": ["node_modules/**"]
+}

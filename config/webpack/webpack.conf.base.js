@@ -1,9 +1,7 @@
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import config from '../index'
 import eslintFormatter from 'react-dev-utils/eslintFormatter'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
-import StyleLintPlugin from 'stylelint-webpack-plugin'
-import WebpackPwaManifest from 'webpack-pwa-manifest'
 
 const { devMode } = config
 const { client, entry, output } = config.client
@@ -20,11 +18,12 @@ const baseWebpackConfig = {
   resolve: {
     extensions: ['.json', '.js', 'scss'],
     alias: {
+      'react-dom': '@hot-loader/react-dom',
       actions: path.resolve(client, 'actions'),
       assets: path.resolve(client, 'assets'),
-      epics: path.resolve(client, 'epics'),
       components: path.resolve(client, 'components'),
       containers: path.resolve(client, 'containers'),
+      epics: path.resolve(client, 'epics'),
       reducers: path.resolve(client, 'reducers'),
       store: path.resolve(client, 'store'),
       styles: path.resolve(client, 'styles'),
@@ -64,9 +63,7 @@ const baseWebpackConfig = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          'babel-loader'
-        ]
+        use: ['babel-loader']
       },
       {
         test: /\.json$/,
@@ -85,37 +82,7 @@ const baseWebpackConfig = {
         ]
       }
     ]
-  },
-  plugins: [
-    new WebpackPwaManifest({
-      filename: 'manifest.json',
-      inject: true,
-      // Short name is what appears on home screen
-      short_name: 'My First PWA',
-      // Name is what appears on splash screen
-      name: 'My First Progressive Web App',
-      // What appears on splash screen & home screen
-      icons: [
-        {
-          src: config.client.icon,
-          sizes: [96, 128, 192, 256, 384, 512],
-          destination: path.join('assets', 'icons')
-        }
-      ],
-      // So your site can tell it was opened from home screen
-      start_url: '/',
-      // Match our app header background
-      background_color: '#44ab98',
-      // What the URL bar will look like
-      theme_color: '#44ab98',
-      // How the app will appear when it launches (see link below)
-      display: 'standalone'
-    }),
-    new StyleLintPlugin({
-      configFile: config.stylelintPath,
-      syntax: 'scss'
-    })
-  ]
+  }
 }
 
 export default baseWebpackConfig

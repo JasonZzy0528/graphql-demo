@@ -5,7 +5,6 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:flowtype/recommended",
     "plugin:react/recommended"
   ],
   "globals":{
@@ -18,11 +17,7 @@
     "ecmaVersion": 8,
     "sourceType": "module"
   },
-  "plugins": [
-    "flowtype"
-  ],
   "rules": {
-    "flowtype/no-types-missing-file-annotation": 0,
     "indent": [
       "error",
       2
@@ -43,5 +38,10 @@
       "never"
     ],
     "no-console": 1
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

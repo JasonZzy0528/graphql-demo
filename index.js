@@ -16,7 +16,7 @@ import { wrapApolloServer, wrapSubscriptionServer } from './lib'
 
 const { isClientEnabled, port } = config
 
-const app: express = express()
+const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

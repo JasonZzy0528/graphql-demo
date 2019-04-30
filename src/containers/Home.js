@@ -1,16 +1,21 @@
 import React from 'react'
-// import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import { connect } from 'react-redux'
 import userEpics from 'epics/user'
 import PropTypes from 'prop-types'
-import Loadable from 'react-loadable'
-import LoadingComponet from 'components/Loading'
+import { epic$ } from 'epics'
+import asyncUserReducer from 'reducers/user'
+import { reducerRegistry$ } from 'reducers'
+reducerRegistry$.next({ UserReducer: asyncUserReducer })
 
-const AsyncTetrahedron = Loadable({
-  loader: () => import('components/Tetrahedron'),
-  loading: LoadingComponet
-})
+// import Loadable from 'react-loadable'
+// import LoadingComponet from 'components/Loading'
 
+// const AsyncTetrahedron = Loadable({
+//   loader: () => import('components/Tetrahedron'),
+//   loading: LoadingComponet
+// })
+epic$.next(userEpics.fetchUserEpic)
 class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -26,10 +31,10 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <AsyncTetrahedron />
-        {/* <Button variant="contained" color="primary" onClick={this.sendRequest}>
-          Primary
-        </Button> */}
+        {/* <AsyncTetrahedron /> */}
+        <Button variant="contained" color="primary" onClick={this.sendRequest}>
+          Primary1
+        </Button>
       </div>
     )
   }

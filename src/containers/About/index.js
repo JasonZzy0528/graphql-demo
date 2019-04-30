@@ -1,10 +1,9 @@
 import React from 'react'
-import { TestConsumer } from '../components/context'
-
-type Props = {/* */}
-type State = {/* */}
-
-class About extends React.Component<Props, State> {
+import { TestConsumer } from 'components/context'
+import asyncUserReducer from 'reducers/user'
+import { reducerRegistry$ } from 'reducers'
+reducerRegistry$.next({ UserReducer: asyncUserReducer })
+class About extends React.Component {
   constructor (props) {
     super(props)
   }

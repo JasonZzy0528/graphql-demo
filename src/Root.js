@@ -1,13 +1,13 @@
 import { Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import {
-  ConnectedRouter
-} from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router'
+import { Link } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import LoadingComponet from 'components/Loading'
+import { hot } from 'react-hot-loader/root'
 
-import { TestProvider } from './components/context'
+import { TestProvider } from 'components/context'
 // import About from 'containers/About'
 
 // const AsyncHeader = Loadable({
@@ -15,10 +15,10 @@ import { TestProvider } from './components/context'
 //   loading: LoadingComponet
 // })
 
-// const AsyncHome = Loadable({
-//   loader: () => import('containers/Home'),
-//   loading: LoadingComponet
-// })
+const AsyncHome = Loadable({
+  loader: () => import('containers/Home'),
+  loading: LoadingComponet
+})
 
 const AsyncLogin = Loadable({
   loader: () => import(/* webpackChunkName: 'login' */ 'containers/Login'),
@@ -36,7 +36,7 @@ const AsyncAbout = Loadable({
 // })
 
 class Root extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       test: {
@@ -53,13 +53,27 @@ class Root extends Component {
 
     return (
       <ConnectedRouter history={history}>
+        <ul>
+          <li>
+            <Link to="/">/</Link>
+          </li>
+          <li>
+            <Link to="/home">home</Link>
+          </li>
+          <li>
+            <Link to="/about">about</Link>
+          </li>
+          <li>
+            <Link to="/login">login</Link>
+          </li>
+        </ul>
         <Switch>
           {/* <AsyncHeader title='test'/> */}
-          {/* <Route exact path='/' component={AsyncHome} /> */}
-          <Route path='/login' component={AsyncLogin} />
+          <Route exact path="/home" component={AsyncHome} />
+          <Route path="/login" component={AsyncLogin} />
           {/* <Route path='/svg' component={AsyncSVG} /> */}
           <TestProvider value={this.state.test}>
-            <Route path='/about' component={AsyncAbout} />
+            <Route path="/about" component={AsyncAbout} />
           </TestProvider>
         </Switch>
       </ConnectedRouter>
@@ -71,4 +85,4 @@ Root.propTypes = {
   history: PropTypes.object
 }
 
-export default Root
+export default hot(Root)
