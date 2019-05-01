@@ -1,19 +1,12 @@
-import { Switch, Route } from 'react-router-dom'
+import Loadable from 'react-loadable'
+import LoadingComponet from 'components/Loading'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ConnectedRouter } from 'connected-react-router'
 import { Link } from 'react-router-dom'
-import Loadable from 'react-loadable'
-import LoadingComponet from 'components/Loading'
-import { hot } from 'react-hot-loader/root'
-
+import { Switch, Route } from 'react-router-dom'
 import { TestProvider } from 'components/context'
-// import About from 'containers/About'
-
-// const AsyncHeader = Loadable({
-//   loader: () => import('components/common/header'),
-//   loading: LoadingComponet
-// })
+import { hot } from 'react-hot-loader/root'
 
 const AsyncHome = Loadable({
   loader: () => import('containers/Home'),
@@ -29,11 +22,6 @@ const AsyncAbout = Loadable({
   loader: () => import(/* webpackChunkName: "about" */ 'containers/About'),
   loading: LoadingComponet
 })
-
-// const AsyncSVG = Loadable({
-//   loader: () => import('containers/SVG'),
-//   loading: LoadingComponet
-// })
 
 class Root extends Component {
   constructor(props) {

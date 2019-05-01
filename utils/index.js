@@ -1,6 +1,6 @@
-import winston from 'winston'
 import morgan from 'morgan'
 import prettyjson from 'prettyjson'
+import winston from 'winston'
 
 const options = {
   keysColor: 'magenta',
@@ -10,7 +10,7 @@ const options = {
 }
 
 const logger = winston.createLogger({
-  level: 'info',
+  level: 'error',
   transports: [
     new winston.transports.Console(
       {
