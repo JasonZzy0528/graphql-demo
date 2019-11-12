@@ -68,7 +68,7 @@
     "sequelize": "^5.8.0",
     "sequelize-cli": "^5.4.0",
     "subscriptions-transport-ws": "^0.9.14",
-    "typeface-roboto": "^0.0.54",
+    "typeface-roboto": "^0.0.75",
     "uuid": "^3.3.2",
     "winston": "^3.0.0"
   },
