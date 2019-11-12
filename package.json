@@ -100,7 +100,7 @@
     "nodemon": "^1.17.5",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "ora": "^3.0.0",
-    "postcss-loader": "^2.1.6",
+    "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^5.2.2",
     "prettyjson": "^1.2.1",
     "react-dev-utils": "^8.0.0",
