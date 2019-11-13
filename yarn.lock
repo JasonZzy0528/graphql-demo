@@ -1807,10 +1807,10 @@ babel-plugin-macros@^2.0.0:
     cosmiconfig "^5.2.0"
     resolve "^1.10.0"
 
-babel-plugin-relay@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-relay/-/babel-plugin-relay-4.0.0.tgz#123cbf7774ba5eb9005738d7cd3f8f1d58a46b37"
-  integrity sha512-wM2L7kyyZcIF8ZAN11OpEkWnOzTT8KX78ot7ElKPbPuKpLxjwbVJkAcbhUj60eCmvS8Vz817xP5JLO7y1Uu5eA==
+babel-plugin-relay@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-relay/-/babel-plugin-relay-7.1.0.tgz#adf5e5dff9f5631d7a6547c460b1a4e9f501713a"
+  integrity sha512-KshZBzjOIovWrdlBjbR+ARvPN5UUJa30KWLyNuxf32WrJij+tOiQTWE1ieN2MHeVpJZUhzBKx7S49Xrm8ALwyA==
   dependencies:
     babel-plugin-macros "^2.0.0"
 
