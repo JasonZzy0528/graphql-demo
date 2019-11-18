@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@hot-loader/react-dom": "^16.8.6",
-    "@material-ui/core": "^3.9.3",
+    "@material-ui/core": "^4.6.1",
     "apollo-server-express": "^2.4.8",
     "babel-plugin-relay": "^7.1.0",
     "bcrypt": "^3.0.0",
